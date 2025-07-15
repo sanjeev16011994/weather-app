@@ -8,11 +8,16 @@ import humidityImg from "../../assets/images/humidity.gif";
 import visibilityImg from "../../assets/images/visiblity.gif";
 
 const TodaysDetails: React.FC = () => {
-  const { weatherData } = useContext(DataContext);
+  const context = useContext(DataContext);
+
+if (!context) {
+  throw new Error("DataContext must be used within a DataContext.Provider");
+}
+
+const { weatherData } = context;
 
   const uvi = weatherData?.current?.uvi || 0;
   const windSpeed = weatherData?.wind?.speed;
-  const windDeg = weatherData?.wind?.deg;
   const humidity = weatherData?.main?.humidity;
   const visibility = weatherData?.visibility;
   const sunrise = weatherData?.sys?.sunrise;
@@ -36,7 +41,7 @@ const TodaysDetails: React.FC = () => {
       value: uvi,
     }));
   }, [uvi]);
-
+  console.log(options)
   return (
     <div className="flex flex-col gap-4 mt-5">
       <h1 className="text-lg font-semibold">Today's Highlights</h1>

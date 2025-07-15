@@ -2,7 +2,7 @@ import React from "react";
 import SideBar from "./sidebar/SideBar";
 import MainComponent from "./main/MainComponent";
 
-const Layout: React.FC = ({ children }) => {
+const Layout: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col p-4 rounded-xl  ">
       <div className="flex flex-1  ">

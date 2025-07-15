@@ -7,7 +7,13 @@ import dayjs from "dayjs";
 import { getCurrentWeather } from "../../services/weatherServices";
 
 const SideBar: React.FC = (): JSX.Element => {
-  const { weatherData, setWeatherData } = useContext(DataContext);
+   const context = useContext(DataContext);
+
+if (!context) {
+  throw new Error("DataContext must be used within a DataContext.Provider");
+}
+
+const { weatherData,setWeatherData } = context;
   console.log(weatherData);
   const weatherIconCode = weatherData?.weather[0]?.icon;
   const iconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
@@ -72,7 +78,8 @@ const SideBar: React.FC = (): JSX.Element => {
 
 export default SideBar;
 
-function WeatherCard({ weatherData }) {
+
+function WeatherCard({ weatherData }: { weatherData: any }) {
   const tempKelvin = weatherData?.main.temp;
   const tempCelsius = (tempKelvin - 273.15).toFixed(1);
 
@@ -86,7 +93,7 @@ function WeatherCard({ weatherData }) {
   );
 }
 
-const CityImage = ({ cityName }) => {
+const CityImage = ({ cityName }: { cityName : any }) => {
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
